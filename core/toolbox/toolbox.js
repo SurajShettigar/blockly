@@ -655,7 +655,7 @@ Blockly.Toolbox.prototype.refreshTheme = function() {
 Blockly.Toolbox.prototype.refreshSelection = function() {
   if (this.selectedItem_ && this.selectedItem_.isSelectable() &&
       this.selectedItem_.getContents().length) {
-    this.flyout_.show(this.selectedItem_.getContents());
+    this.flyout_.show(this.selectedItem_.getContents(), this.selectedItem_.hexColor);
   }
 };
 
@@ -778,7 +778,7 @@ Blockly.Toolbox.prototype.updateFlyout_ = function(oldItem, newItem) {
       !newItem.getContents().length) {
     this.flyout_.hide();
   } else {
-    this.flyout_.show(newItem.getContents());
+    this.flyout_.show(newItem.getContents(), newItem.hexColor);
     this.flyout_.scrollToStart();
   }
 };

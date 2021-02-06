@@ -239,7 +239,8 @@ Blockly.ToolboxCategory.prototype.createDom_ = function() {
   Blockly.utils.aria.setState(/** @type {!Element} */ (this.htmlDiv_),
       Blockly.utils.aria.State.LABELLEDBY, labelDom.getAttribute('id'));
 
-  this.addColourBorder_(this.colour_);
+  // this.addColourBorder_(this.colour_);
+  this.addColourIcon_(this.colour_);
 
   return this.htmlDiv_;
 };
@@ -320,7 +321,19 @@ Blockly.ToolboxCategory.prototype.createLabelDom_ = function(name) {
 Blockly.ToolboxCategory.prototype.refreshTheme = function() {
   this.colour_ = this.getColour_(/** @type {Blockly.utils.toolbox.CategoryInfo} **/
       (this.toolboxItemDef_));
-  this.addColourBorder_(this.colour_);
+  // this.addColourBorder_(this.colour_);
+  this.addColourIcon_(this.colour_);
+};
+
+/**
+ * Add the colour to the toolbox icon.
+ * @param {string} colour The category colour.
+ * @protected
+ */
+Blockly.ToolboxCategory.prototype.addColourIcon_ = function(colour) {
+  if (colour) {
+    this.iconDom_.style.background = colour;
+  }
 };
 
 /**

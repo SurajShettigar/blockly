@@ -152,6 +152,14 @@ Blockly.Variables.flyoutCategoryBlocks = function(workspace) {
           Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
       xmlList.push(block);
     }
+    if (Blockly.Blocks['variables_set_loop']) {
+      var block = Blockly.utils.xml.createElement('block');
+      block.setAttribute('type', 'variables_set_loop');
+      block.setAttribute('gap', Blockly.Blocks['math_change'] ? 8 : 24);
+      block.appendChild(
+          Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
+      xmlList.push(block);
+    }
     if (Blockly.Blocks['math_change']) {
       var block = Blockly.utils.xml.createElement('block');
       block.setAttribute('type', 'math_change');

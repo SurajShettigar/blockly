@@ -85,6 +85,15 @@ Blockly.VariablesDynamic.flyoutCategoryBlocks = function(workspace) {
           Blockly.Variables.generateVariableFieldDom(firstVariable));
       xmlList.push(block);
     }
+    if (Blockly.Blocks['variables_set_loop_dynamic']) {
+      var firstVariable = variableModelList[variableModelList.length - 1];
+      var block = Blockly.utils.xml.createElement('block');
+      block.setAttribute('type', 'variables_set_loop_dynamic');
+      block.setAttribute('gap', 24);
+      block.appendChild(
+          Blockly.Variables.generateVariableFieldDom(firstVariable));
+      xmlList.push(block);
+    }
     if (Blockly.Blocks['variables_get_dynamic']) {
       variableModelList.sort(Blockly.VariableModel.compareByName);
       for (var i = 0, variable; (variable = variableModelList[i]); i++) {

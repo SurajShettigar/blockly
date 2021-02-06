@@ -1494,6 +1494,16 @@ Blockly.Msg.VARIABLES_SET_TOOLTIP = 'Sets this variable to be equal to the input
 /// this variable.\n\nParameters:\n* %1 - the name of the variable.
 Blockly.Msg.VARIABLES_SET_CREATE_GET = 'Create "get %1"';
 
+/** @type {string} */
+/// {{Optional}} url - Information about ''variables'' in computer programming.  Consider using your language's translation of [https://en.wikipedia.org/wiki/Variable_(computer_science) https://en.wikipedia.org/wiki/Variable_(computer_science)], if it exists.
+Blockly.Msg.VARIABLES_SET_LOOP_HELPURL = 'https://github.com/google/blockly/wiki/Variables#set';
+/** @type {string} */
+/// block text - Change the value of a mathematical variable: '''set [the value of] x to 7'''.\n\nParameters:\n* %1 - the name of the variable.\n* %2 - the value to be assigned.
+Blockly.Msg.VARIABLES_SET_LOOP = 'set %1 to %2 in loop';
+/** @type {string} */
+/// tooltip - This initializes or changes the value of the named variable.
+Blockly.Msg.VARIABLES_SET_LOOP_TOOLTIP = 'Sets this variable to be equal to the input inside loop function.';
+
 // Procedures Blocks.
 /** @type {string} */
 /// {{Optional}} url - Information about defining [https://en.wikipedia.org/wiki/Subroutine functions] that do not have return values.

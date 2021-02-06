@@ -69,6 +69,27 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "tooltip": "%{BKY_VARIABLES_SET_TOOLTIP}",
     "helpUrl": "%{BKY_VARIABLES_SET_HELPURL}",
     "extensions": ["contextMenu_variableSetterGetter"]
+  },
+  {
+    "type": "variables_set_loop",
+    "message0": "%{BKY_VARIABLES_SET_LOOP}",
+    "args0": [
+      {
+        "type": "field_variable",
+        "name": "VAR",
+        "variable": "%{BKY_VARIABLES_DEFAULT_NAME}"
+      },
+      {
+        "type": "input_value",
+        "name": "VALUE"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "variable_blocks",
+    "tooltip": "%{BKY_VARIABLES_SET_LOOP_TOOLTIP}",
+    "helpUrl": "%{BKY_VARIABLES_SET_LOOP_HELPURL}",
+    "extensions": ["contextMenu_variableSetterGetter"]
   }
 ]);  // END JSON EXTRACT (Do not delete this comment.)
 
@@ -93,6 +114,8 @@ Blockly.Constants.Variables.CUSTOM_CONTEXT_MENU_VARIABLE_GETTER_SETTER_MIXIN = {
       if (this.type == 'variables_get') {
         var opposite_type = 'variables_set';
         var contextMenuMsg = Blockly.Msg['VARIABLES_GET_CREATE_SET'];
+        var opposite_type2 = 'variables_set_loop';
+        var contextMenuMsg2 = Blockly.Msg['VARIABLES_GET_CREATE_SET_LOOP'];
       } else {
         var opposite_type = 'variables_get';
         var contextMenuMsg = Blockly.Msg['VARIABLES_SET_CREATE_GET'];
@@ -109,6 +132,20 @@ Blockly.Constants.Variables.CUSTOM_CONTEXT_MENU_VARIABLE_GETTER_SETTER_MIXIN = {
       xmlBlock.appendChild(xmlField);
       option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
       options.push(option);
+
+      if (opposite_type2 && contextMenuMsg2) {
+        var option = { enabled: this.workspace.remainingCapacity() > 0 };
+        var name = this.getField('VAR').getText();
+        option.text = contextMenuMsg2.replace('%1', name);
+        var xmlField = Blockly.utils.xml.createElement('field');
+        xmlField.setAttribute('name', 'VAR');
+        xmlField.appendChild(Blockly.utils.xml.createTextNode(name));
+        var xmlBlock = Blockly.utils.xml.createElement('block');
+        xmlBlock.setAttribute('type', opposite_type2);
+        xmlBlock.appendChild(xmlField);
+        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        options.push(option);
+      }
       // Getter blocks have the option to rename or delete that variable.
     } else {
       if (this.type == 'variables_get' || this.type == 'variables_get_reporter') {

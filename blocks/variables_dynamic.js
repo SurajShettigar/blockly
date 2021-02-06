@@ -65,6 +65,26 @@ Blockly.defineBlocksWithJsonArray([ // BEGIN JSON EXTRACT
     "tooltip": "%{BKY_VARIABLES_SET_TOOLTIP}",
     "helpUrl": "%{BKY_VARIABLES_SET_HELPURL}",
     "extensions": ["contextMenu_variableDynamicSetterGetter"]
+  },
+  {
+    "type": "variables_set_loop_dynamic",
+    "message0": "%{BKY_VARIABLES_SET_LOOP}",
+    "args0": [{
+      "type": "field_variable",
+      "name": "VAR",
+      "variable": "%{BKY_VARIABLES_DEFAULT_NAME}"
+    },
+    {
+      "type": "input_value",
+      "name": "VALUE"
+    }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "variable_dynamic_blocks",
+    "tooltip": "%{BKY_VARIABLES_SET_LOOP_TOOLTIP}",
+    "helpUrl": "%{BKY_VARIABLES_SET_LOOP_HELPURL}",
+    "extensions": ["contextMenu_variableDynamicSetterGetter"]
   }
 ]); // END JSON EXTRACT (Do not delete this comment.)
 
@@ -88,12 +108,16 @@ Blockly.Constants.VariablesDynamic.CUSTOM_CONTEXT_MENU_VARIABLE_GETTER_SETTER_MI
     if (!this.isInFlyout) {
       var opposite_type;
       var contextMenuMsg;
+      var opposite_type2;
+      var contextMenuMsg2;
       var id = this.getFieldValue('VAR');
       var variableModel = this.workspace.getVariableById(id);
       var varType = variableModel.type;
       if (this.type == 'variables_get_dynamic') {
         opposite_type = 'variables_set_dynamic';
+        opposite_type2 = 'variables_set_loop_dynamic';
         contextMenuMsg = Blockly.Msg['VARIABLES_GET_CREATE_SET'];
+        contextMenuMsg2 = Blockly.Msg['VARIABLES_GET_CREATE_SET_LOOP'];
       } else {
         opposite_type = 'variables_get_dynamic';
         contextMenuMsg = Blockly.Msg['VARIABLES_SET_CREATE_GET'];
@@ -111,6 +135,21 @@ Blockly.Constants.VariablesDynamic.CUSTOM_CONTEXT_MENU_VARIABLE_GETTER_SETTER_MI
       xmlBlock.appendChild(xmlField);
       option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
       options.push(option);
+
+      if (opposite_type2 && contextMenuMsg2) {
+        var option = { enabled: this.workspace.remainingCapacity() > 0 };
+        var name = this.getField('VAR').getText();
+        option.text = contextMenuMsg2.replace('%1', name);
+        var xmlField = Blockly.utils.xml.createElement('field');
+        xmlField.setAttribute('name', 'VAR');
+        xmlField.setAttribute('variabletype', varType);
+        xmlField.appendChild(Blockly.utils.xml.createTextNode(name));
+        var xmlBlock = Blockly.utils.xml.createElement('block');
+        xmlBlock.setAttribute('type', opposite_type2);
+        xmlBlock.appendChild(xmlField);
+        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        options.push(option);
+      }
     } else {
       if (this.type == 'variables_get_dynamic' ||
        this.type == 'variables_get_reporter_dynamic') {

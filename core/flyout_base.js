@@ -463,7 +463,7 @@ Blockly.Flyout.prototype.hide = function() {
  *     in the flyout. This is either an array of Nodes, a NodeList, a
  *     toolbox definition, or a string with the name of the dynamic category.
  */
-Blockly.Flyout.prototype.show = function(flyoutDef) {
+Blockly.Flyout.prototype.show = function(flyoutDef, color) {
   this.workspace_.setResizesEnabled(false);
   this.hide();
   this.clearOldBlocks_();
@@ -509,6 +509,10 @@ Blockly.Flyout.prototype.show = function(flyoutDef) {
 
   this.reflowWrapper_ = this.reflow.bind(this);
   this.workspace_.addChangeListener(this.reflowWrapper_);
+
+  // Add background color to toolbox when opened
+  if (color)
+    this.svgBackground_.style.fill = color;
 };
 
 /**
